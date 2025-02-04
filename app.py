@@ -44,6 +44,7 @@ def input_pdf_text(uploaded_file):
     except Exception as e:
         return None
 
+
 # Function to generate a PDF report
 def generate_pdf_report(results):
     pdf = FPDF()
@@ -56,10 +57,12 @@ def generate_pdf_report(results):
         pdf.cell(200, 10, f"{key}: {value}", ln=True)
         pdf.ln(5)
     
-    pdf_output = BytesIO()
-    pdf.output(pdf_output)  # No 'F' argument needed for BytesIO
-    pdf_output.seek(0)  # Reset pointer to the beginning of the buffer
-    return pdf_output
+    # Generate PDF output as a string
+    pdf_output = pdf.output(dest='S').encode('latin1')  # Use 'S' for string output and then encode to bytes
+    pdf_report = BytesIO(pdf_output)  # Store it in BytesIO for download
+    pdf_report.seek(0)  # Reset the pointer to the beginning of the buffer
+    return pdf_report
+
 
 
 # Prompt template
