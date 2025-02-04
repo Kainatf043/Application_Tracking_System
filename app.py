@@ -57,9 +57,10 @@ def generate_pdf_report(results):
         pdf.ln(5)
     
     pdf_output = BytesIO()
-    pdf.output(pdf_output, 'F')
-    pdf_output.seek(0)
+    pdf.output(pdf_output)  # No 'F' argument needed for BytesIO
+    pdf_output.seek(0)  # Reset pointer to the beginning of the buffer
     return pdf_output
+
 
 # Prompt template
 input_prompt = """
